@@ -2,23 +2,31 @@
    MOBILE MENU
 ========================= */
 
-const menuButton = document.querySelector(".menu-button");
-const mobileMenu = document.querySelector(".mobile-menu");
+const menuButton =
+    document.querySelector(".menu-button");
+
+const mobileMenu =
+    document.querySelector(".mobile-menu");
+
 
 menuButton.addEventListener("click", () => {
+
     mobileMenu.classList.toggle("active");
+
 });
 
 
-document.querySelectorAll(".mobile-menu a").forEach(link => {
+document
+    .querySelectorAll(".mobile-menu a")
+    .forEach(link => {
 
-    link.addEventListener("click", () => {
+        link.addEventListener("click", () => {
 
-        mobileMenu.classList.remove("active");
+            mobileMenu.classList.remove("active");
+
+        });
 
     });
-
-});
 
 
 
@@ -26,61 +34,115 @@ document.querySelectorAll(".mobile-menu a").forEach(link => {
    SCROLL PROGRESS
 ========================= */
 
-const progressBar = document.querySelector(".scroll-progress");
+const scrollProgress =
+    document.querySelector(".scroll-progress");
+
 
 window.addEventListener("scroll", () => {
 
-    const scrollTop = window.scrollY;
+    const scrollTop =
+        window.scrollY;
 
-    const documentHeight =
+    const pageHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
 
-    const progress =
-        (scrollTop / documentHeight) * 100;
+    const percentage =
+        (scrollTop / pageHeight) * 100;
 
-    progressBar.style.width = `${progress}%`;
+    scrollProgress.style.width =
+        `${percentage}%`;
 
 });
 
 
 
 /* =========================
-   SCROLL REVEAL ANIMATION
+   REVEAL ANIMATION
 ========================= */
 
 const revealElements =
     document.querySelectorAll(".reveal");
 
 
-const observer = new IntersectionObserver(
+const observer =
+    new IntersectionObserver(
 
-    (entries) => {
+        (entries) => {
 
-        entries.forEach(entry => {
+            entries.forEach(entry => {
 
-            if (entry.isIntersecting) {
+                if (entry.isIntersecting) {
 
-                entry.target.classList.add("visible");
+                    entry.target.classList.add("visible");
 
-                observer.unobserve(entry.target);
+                    observer.unobserve(entry.target);
 
-            }
+                }
 
-        });
+            });
 
-    },
+        },
 
-    {
-        threshold: 0.12
-    }
+        {
+            threshold: 0.12
+        }
 
-);
+    );
 
 
 revealElements.forEach(element => {
 
     observer.observe(element);
+
+});
+
+
+
+/* =========================
+   SKILL PROGRESS BARS
+========================= */
+
+const skillBars =
+    document.querySelectorAll(".progress-bar");
+
+
+const skillObserver =
+    new IntersectionObserver(
+
+        (entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    const bar =
+                        entry.target;
+
+                    const percentage =
+                        bar.dataset.progress;
+
+                    bar.style.width =
+                        `${percentage}%`;
+
+                    skillObserver.unobserve(bar);
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold: 0.5
+        }
+
+    );
+
+
+skillBars.forEach(bar => {
+
+    skillObserver.observe(bar);
 
 });
 
@@ -103,7 +165,8 @@ window.addEventListener("scroll", () => {
 
     } else {
 
-        navbar.style.boxShadow = "none";
+        navbar.style.boxShadow =
+            "none";
 
     }
 
@@ -113,7 +176,6 @@ window.addEventListener("scroll", () => {
 
 /* =========================
    CLOSE MOBILE MENU
-   WHEN CLICKING OUTSIDE
 ========================= */
 
 document.addEventListener("click", (event) => {
